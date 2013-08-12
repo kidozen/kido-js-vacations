@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>demo</title>        
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+
+    	<link rel="stylesheet" href="/css/jquery.mobile.css" />
+		<script src="/js/lib/jquery.js"></script>
+		<script src="/js/lib/jquery.mobile.js"></script>
+        <script src="/js/lib/kido.js"></script>
+
+    </head>
+    <body data-ajax="false">
+
+    	<div data-role="page" id="home">
+            <div data-role="header">
+                <a href="#request" data-role="button" data-inline="true" data-icon="plus">Request</a>
+                <h1>Vacations</h1>
+                <a href="#discussion" data-role="button" data-inline="true" data-icon="info">Discuss</a>
+            </div>
+
+			<div data-role="content">
+                <ul data-role="listview" data-filter="true" id="Vacations">
+                </ul>
+            </div>
+    	</div>
+
+        <div data-role="page" id="request">
+            <div data-role="header">
+                <h1>Request PTOS</h1>
+            </div><!-- /header -->
+            <div data-role="content">
+                <form>
+                    <div data-role="fieldcontain" class="ui-hide-label">
+                        <label for="EventDate">Start Date:</label>
+                        <input type="date" name="EventDate" id="EventDate" value="" placeholder="Start Date"/>
+                    </div>
+                    <div data-role="fieldcontain" class="ui-hide-label">
+                        <label for="EndDate">End Date:</label>
+                        <input type="text" name="EndDate" id="EndDate" value="" placeholder="End Date"/>
+                    </div>
+                    <a href="#" data-role="button" data-inline="true" data-icon="check" id="submit-request" data-theme="b">Submit!</a>
+                    <a href="/" data-role="button" data-inline="true" id="cancel-request">Cancel</a>
+                </form>
+            </div><!-- /content -->
+        </div><!-- /page request -->
+
+        <div data-role="page" id="discussion">
+            <div data-role="header">
+                <a href="/" data-role="button" data-inline="true" data-icon="back">Back</a>
+                
+                <h1 id="discussion-subject"></h1>
+            </div><!-- /header -->
+            <div data-role="content">
+                <p id="discussion-content"></p>
+                <div data-role="fieldcontain" class="ui-hide-label">
+                    <input type="text" name="discussion-reply" id="discussion-reply" value="" placeholder="Reply"/>
+                </div>
+                <hr>
+                <ul data-role="listview"id="discussion-replies">
+                </ul>
+                
+            </div><!-- /content -->
+        </div><!-- /page discussion -->
+        <script type="text/javascript" src="/js/model.js"></script>
+        <script type="text/javascript" src="/js/view.js"></script>
+        <script type="text/javascript" src="/js/controller.js"></script>
+        <script type="text/javascript" src="/js/app.js"></script>
+
+    </body>
+</html>
