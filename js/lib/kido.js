@@ -1,8 +1,9 @@
-//KidoZen Javascript SDK v0.1.0. Copyright (c) 2013 Kidozen, Inc. MIT Licensed
+// KidoZen Javascript SDK v0.1.3.
+// Copyright (c) 2013 Kidozen, Inc. MIT Licensed
 jQuery.extend({
 
     crossDomain: function(options) {
-
+    
         var deferred = $.Deferred();
 
         if (!XMLHttpRequest && !XDomainRequest) {
@@ -10,11 +11,11 @@ jQuery.extend({
         }
 
         var request = new XMLHttpRequest();
-
+        
         if(request.withCredentials == undefined) {
             throw 'Browser doesn\'t support CORS.';
         }
-
+    
         var handler = function(evtXHR) {
 
             if (request.readyState == 4) {
@@ -47,7 +48,7 @@ jQuery.extend({
         request.send();
 
         return deferred;
-
+            
             /* TODO: Make this work on IE
             else if (XDomainRequest)
             {
@@ -1224,7 +1225,7 @@ var KidoObjectSet = function ( name, parentStorage ) {
         });
     };
 
-    
+
     /**
      * Updates an existing object, the object instance
      * must contains the object's key
@@ -1241,7 +1242,7 @@ var KidoObjectSet = function ( name, parentStorage ) {
                 type: "PUT",
                 data: JSON.stringify(obj)
             },
-            isPrivate: isPrivate
+            isPrivate: !!isPrivate
         };
 
         return self
@@ -1360,12 +1361,10 @@ var KidoObjectSet = function ( name, parentStorage ) {
 
 
 Kido.prototype.storage = function () {
-
+    //cache the KidoStorage instance
     if (!this._storage) this._storage = new KidoStorage(this);
-
     return this._storage;
 };
-
 
 /**
  * access to the storage backend service, to manage object set indexes.
@@ -1491,9 +1490,20 @@ var KidoService = function ( kidoApp, name ) {
 
 
     this.invoke = function ( name, opts ) {
-
-        var args = $.extend(self._defaults, opts);
-        return self.app.post("/api/services/" + self.name + "/invoke/" + name, args);
+        var result = $.Deferred();
+        var args = $.extend({}, self._defaults, opts);
+        self.app
+            .post("/api/services/" + self.name + "/invoke/" + name, args)
+            .done(function ( res ) {
+                if (res.error) {
+                    return result.reject(res.error);
+                }
+                result.resolve(res.data || res);
+            })
+            .fail(function (err) {
+                result.reject(err);
+            });
+        return result;
     };
 };
 

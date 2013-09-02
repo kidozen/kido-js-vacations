@@ -110,8 +110,8 @@ var model = {
                     //in res1 and res2 are the responses to both of the
                     //jive.invoke we did with $.when
                     .pipe(function (res1, res2) {
-                        var discussion     = res1[0].body;
-                        discussion.replies = res2[0].body.list;
+                        var discussion     = res1.body;
+                        discussion.replies = res2.body.list;
                         return discussion;
                     });
             })
