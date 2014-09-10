@@ -55,3 +55,7 @@ credentials in your SharePoint site.
 In order to run the app locally, you need to have a KidoZen account, and have
 the [kido](https://github.com/kidozen/kido) client tool installed (see the 
 [docs](http://docs.kidozen.com/sdks/javascript/) for more information).
+
+##Important
+
+**jQuery 1.8 or above is required**
